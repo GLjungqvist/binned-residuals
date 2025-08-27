@@ -50,7 +50,7 @@ def plot_binned_averages(
     n_bins=None,
     grid=False,
     ci=True,
-    ylabel="Binned residuals",
+    y_label="Binned residuals",
     title=None,
     ax=None,
 ):
@@ -74,7 +74,7 @@ def plot_binned_averages(
     else:
         ax.plot(data_for_plot["x_bar"], data_for_plot["y_bar"], "o")
     ax.set_xlabel(x_values.name)
-    ax.set_ylabel(ylabel)
+    ax.set_ylabel(y_label)
 
     if title is not None:
         ax.set_title(title)
@@ -83,14 +83,14 @@ def plot_binned_averages(
     return ax
 
 
-def plot_binned_residuals(residuals, dataframe, colnames, figsize, nrows=None, **kwargs):
-    if len(colnames) == 1:
-        return plot_binned_averages(residuals, dataframe[colnames[0]], **kwargs)
+def plot_binned_residuals(residuals, dataframe, col_names, figsize, nrows=None, **kwargs):
+    if len(col_names) == 1:
+        return plot_binned_averages(residuals, dataframe[col_names[0]], **kwargs)
     if not nrows:
-        nrows = int(np.floor(np.sqrt(len(colnames))))
-    ncols = int(np.ceil(len(colnames) / nrows))
+        nrows = int(np.floor(np.sqrt(len(col_names))))
+    ncols = int(np.ceil(len(col_names) / nrows))
     fig, axs = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
-    for ax, cname in zip(axs.ravel(), colnames):
+    for ax, cname in zip(axs.ravel(), col_names):
         try:
             plot_binned_averages(residuals, dataframe[cname], ax=ax, **kwargs)
         except Exception:

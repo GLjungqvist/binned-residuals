@@ -10,5 +10,7 @@ To set up the project for development:
 ```bash
 uv sync
 ```
-
-This installs the package in editable mode along with development dependencies (pytest, ruff).
+3. To install the package in editable mode (to be able to run examples), run:
+```bash
+uv pip install -e .
+```
