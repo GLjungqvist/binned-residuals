@@ -1,8 +1,6 @@
-from matplotlib import pyplot as plt
-
 import numpy as np
-
 import pandas as pd
+from matplotlib import pyplot as plt
 
 
 def get_binned_averages(x_data, y_data, subset=None, n_bins=None):
@@ -32,28 +30,49 @@ def get_binned_averages(x_data, y_data, subset=None, n_bins=None):
         y_bar = np.mean(y_values_in_bin)
         n_in_bin = len(x_values_in_bin)
         y_stddev = np.std(y_values_in_bin)
-        list_of_data_frames.append(pd.DataFrame(data={
-            'x_bar': [x_bar],
-            'y_bar': [y_bar],
-            'n_in_bin': [n_in_bin],
-            'y_se': [2 * y_stddev / np.sqrt(n_in_bin)]
-        }))
+        list_of_data_frames.append(
+            pd.DataFrame(
+                data={
+                    "x_bar": [x_bar],
+                    "y_bar": [y_bar],
+                    "n_in_bin": [n_in_bin],
+                    "y_se": [2 * y_stddev / np.sqrt(n_in_bin)],
+                }
+            )
+        )
     return pd.concat(list_of_data_frames)
 
 
-def plot_binned_averages(residuals, x_values, subset=None, n_bins=None, grid=False, ci=True,
-                         ylabel='Binned residuals', title=None, ax=None):
+def plot_binned_averages(
+    residuals,
+    x_values,
+    subset=None,
+    n_bins=None,
+    grid=False,
+    ci=True,
+    ylabel="Binned residuals",
+    title=None,
+    ax=None,
+):
     data_for_plot = get_binned_averages(x_values, residuals, subset, n_bins)
 
     if ax is None:
         _f, ax = plt.subplots()
 
     if ci:
-        ax.plot(data_for_plot['x_bar'], data_for_plot['y_se'].values, 'darkgray',
-                data_for_plot['x_bar'], -data_for_plot['y_se'].values, 'darkgray',
-                data_for_plot['x_bar'], data_for_plot['y_bar'], 'o')
+        ax.plot(
+            data_for_plot["x_bar"],
+            data_for_plot["y_se"].values,
+            "darkgray",
+            data_for_plot["x_bar"],
+            -data_for_plot["y_se"].values,
+            "darkgray",
+            data_for_plot["x_bar"],
+            data_for_plot["y_bar"],
+            "o",
+        )
     else:
-        ax.plot(data_for_plot['x_bar'], data_for_plot['y_bar'], 'o')
+        ax.plot(data_for_plot["x_bar"], data_for_plot["y_bar"], "o")
     ax.set_xlabel(x_values.name)
     ax.set_ylabel(ylabel)
 
@@ -74,7 +93,7 @@ def plot_binned_residuals(residuals, dataframe, colnames, figsize, nrows=None, *
     for ax, cname in zip(axs.ravel(), colnames):
         try:
             plot_binned_averages(residuals, dataframe[cname], ax=ax, **kwargs)
-        except:
-            print('Error when trying to plot column ' + cname)
+        except Exception:
+            print("Error when trying to plot column " + cname)
 
     return fig, axs

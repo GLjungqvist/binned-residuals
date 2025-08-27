@@ -9,7 +9,7 @@ description = "Binned residual plots for regression diagnostics"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Gustav Antonsson Ljungqvist"}
 ]
 keywords = ["regression", "diagnostics", "residuals", "visualization", "statistics"]
 classifiers = [
@@ -31,24 +31,24 @@ dependencies = [
     "matplotlib>=3.5.0"
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "pytest",
     "ruff"
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/binned-residuals"
-Repository = "https://github.com/yourusername/binned-residuals"
-Issues = "https://github.com/yourusername/binned-residuals/issues"
-Documentation = "https://github.com/yourusername/binned-residuals#readme"
+Homepage = "https://github.com/GLjungqvist/binned-residuals"
+Repository = "https://github.com/GLjungqvist/binned-residuals"
+Issues = "https://github.com/GLjungqvist/binned-residuals/issues"
+Documentation = "https://github.com/GLjungqvist/binned-residuals#readme"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["binned_residuals*"]
 
 [tool.ruff]
-line-length = 88
+line-length = 100
 target-version = "py38"
 
 [tool.pytest.ini_options]
